@@ -1,0 +1,158 @@
+"-----------------------------------------------------------------------------
+"  ~/vimrc && ~/.gvimrc
+"
+"	Leandro Pincini <leandropincini@gmail.com>
+"-----------------------------------------------------------------------------
+
+" always set autoindenting on
+set ai
+
+" allow backspacing over everything in insert mode
+set backspace=ident,eol,start
+
+" make the current directory the first where vim search for the file
+set browsedir=current
+
+" keep 50 lines of command line history
+set history=50
+
+" do incremental searching
+set incsearch
+
+" do no keep a backup file, use versions instead
+set nobackup
+
+" show the cursor position all the time
+set ruler
+
+" number of spaces for indentation
+set shiftwidth=4
+
+" always using spaces
+set expandtab
+
+" display incomplete commands
+set showcmd
+
+" show the matching bracket for the last ')'?
+set showmatch
+
+" add indentation itens in vim's edited files
+set smartindent
+
+" add 4 spaces when tab's key is pressed
+set smarttab
+
+" setting the tab's size
+set tabstop=4
+
+" always ignore some files extensions
+set wildignore=*.bak,*.o,*.e,*~
+
+" show menus up the command line
+set wildmenu
+
+" auto wrap lines
+set wrap
+
+" setting the number of characters by line
+set textwidth=80
+
+" secure option
+set nomodeline
+
+" no bell sound
+set vb t_vb=
+
+" to get a dialog when command fails
+set confirm
+
+" read open files again when changed outside Vim
+set autoread
+
+" show mode (Visual, Insert, Select, etc)
+set showmode
+
+" options for Gvim/MacVim
+set guioptions=egmLtihvF
+
+" always be plugins on
+filetype on
+filetype plugin on
+filetype indent on
+
+" if terminal support syntax hilight, turn it on
+if &t_Co > 1
+	syntax enable
+endif
+
+" if vim is running with gui
+if has("gui_running")
+    " loading no_quarter theme
+    colorscheme no_quarter
+
+    " change the background for dark scheme
+    set background=dark
+
+	" setting number of tabs in the same window
+	set tabpagemax=100
+
+	" ennabling mouse interact
+	set mouse=a
+
+	" hide mouse while typing
+	set mousehide
+
+	" standard window size we were used to
+	set lines=40 columns=96
+
+	" higlight the cursor line
+	set cursorline
+
+	" showing the number of lines
+	set invnumber
+endif
+
+" if vim is running with macvim's gui
+if has ("gui_macvim")
+	" macvim shift selection
+	let macvim_hig_shift_movement = 1
+
+	" monaco 12 font
+	set guifont=Monaco:h12
+endif
+
+" Deleting Win/Dos CR/LF
+
+fun RmCR()
+	let oldLine=line('.')
+	exe ":%s/\r//g"
+	exe ':' . oldLine
+endfun
+
+" Completing words
+
+function! Mosh_Tab_Or_Complete()
+	if col('.')>1 && strpart( getline('.'), col('.')-2,3 ) =~ '^\w'
+		return "\<C-N>"
+	else
+		return "\<Tab>"
+endfunction
+
+inoremap <D-/> <C-R>=Mosh_Tab_Or_Complete()<CR>
+
+" UTF8 conversion
+
+nmap ,utf8 !recode -q ISO-8859-1..utf-8
+
+" Shortcuts for Tabs (Command on OS X)
+
+map <c-t> :tabnew<cr>
+map <c-h> :tabprevious<cr>
+map <c-l> :tabnext<cr>
+
+" Display margin
+
+map ,m <ESC>:match rightMargin /.\%>80v/<CR>
+map ,M <ESC>:match rightMargin <CR>
+
