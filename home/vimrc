@@ -8,7 +8,7 @@
 set ai
 
 " allow backspacing over everything in insert mode
-set backspace=ident,eol,start
+set backspace=indent,eol,start
 
 " make the current directory the first where vim search for the file
 set browsedir=current
@@ -88,6 +88,12 @@ endif
 
 " if vim is running with gui
 if has("gui_running")
+    " default language
+    set helplang=en
+
+    " charset utf-8
+    set termencoding=utf-8
+
     " loading no_quarter theme
     colorscheme no_quarter
 
