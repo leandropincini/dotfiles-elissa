@@ -73,6 +73,9 @@ set autoread
 " show mode (Visual, Insert, Select, etc)
 set showmode
 
+" select mode will be started by shift keys
+set selectmode=mouse
+
 " options for Gvim/MacVim
 set guioptions=egmLtihvF
 
@@ -117,6 +120,9 @@ if has("gui_running")
 
 	" showing the number of lines
 	set invnumber
+
+    " tabs label
+    set guitablabel=(%N%M)\ %f
 endif
 
 " if vim is running with macvim's gui
@@ -129,7 +135,6 @@ if has ("gui_macvim")
 endif
 
 " Deleting Win/Dos CR/LF
-
 fun RmCR()
 	let oldLine=line('.')
 	exe ":%s/\r//g"
@@ -137,7 +142,6 @@ fun RmCR()
 endfun
 
 " Completing words
-
 function! Mosh_Tab_Or_Complete()
 	if col('.')>1 && strpart( getline('.'), col('.')-2,3 ) =~ '^\w'
 		return "\<C-N>"
@@ -147,18 +151,36 @@ endfunction
 
 inoremap <D-/> <C-R>=Mosh_Tab_Or_Complete()<CR>
 
-" UTF8 conversion
+" Java Completion
+inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
+inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
 
+" UTF8 conversion
 nmap ,utf8 !recode -q ISO-8859-1..utf-8
 
 " Shortcuts for Tabs (Command on OS X)
-
 map <c-t> :tabnew<cr>
 map <c-h> :tabprevious<cr>
 map <c-l> :tabnext<cr>
 
-" Display margin
+" Call gvim file browser
+noremap     <silent> <s-F8>         :silent browse confirm e<CR>
+inoremap    <silent> <s-F8> <ESC>   :silent browse confirm e<CR>
 
+" Display margin
 map ,m <ESC>:match rightMargin /.\%>80v/<CR>
 map ,M <ESC>:match rightMargin <CR>
+
+" Omni Completion colors
+hi Pmenu    ctermfg=black       ctermbg=grey    cterm=NONE
+hi PmenuSel ctermfg=darkyellow  ctermbg=black   cterm=inverse
+
+" DelimitMate Options
+let delimitMate = "(:),[:],{:},<:>"
+let delimitMate_matchpairs = "(:),[:],{:},<:>"
+let delimitMate_quotes = "\" ' ` *"
+let delimitMate_visual_leader = "f"
+let delimitMate_expand_cr = "\<CR>\<CR>\<Up>"
+let delimitMate_expand_space = "\<Space>\<Space>\<Left>"
+let delimitMate_excluded_ft = ""
 
