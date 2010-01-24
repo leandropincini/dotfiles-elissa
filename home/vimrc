@@ -19,6 +19,9 @@ set history=50
 " do incremental searching
 set incsearch
 
+" hilight searches by default
+set hlsearch
+
 " do no keep a backup file, use versions instead
 set nobackup
 
@@ -122,7 +125,7 @@ if has("gui_running")
 	set invnumber
 
     " tabs label
-    set guitablabel=(%N%M)\ %f
+    set guitablabel=%f
 endif
 
 " if vim is running with macvim's gui
@@ -170,6 +173,9 @@ inoremap    <silent> <s-F8> <ESC>   :silent browse confirm e<CR>
 " Display margin
 map ,m <ESC>:match rightMargin /.\%>80v/<CR>
 map ,M <ESC>:match rightMargin <CR>
+
+" NERDTree Options
+map ,n <ESC>:NERDTree<CR>
 
 " Omni Completion colors
 hi Pmenu    ctermfg=black       ctermbg=grey    cterm=NONE
